@@ -56,7 +56,7 @@ public class FacultyController {
         }
     }
 
-    @GetMapping(path = "{color}")
+    @GetMapping(path = "/color/{color}")
     public ResponseEntity<Collection<Faculty>> facultiesByColor(@PathVariable String color) {
         Collection<Faculty> facultiesWithColor = facultyService.findByColor(color);
         if (facultiesWithColor == null) {
