@@ -10,7 +10,7 @@ import java.util.Map;
 @Service
 public class FacultyServiceImpl implements FacultyService {
     private final Map<Long, Faculty> faculties = new HashMap<>();
-    private long facultyId = 0;
+    private static long facultyId = 0;
     @Override
     public Faculty createFaculty(Faculty faculty) {
         faculty.setId(++facultyId);

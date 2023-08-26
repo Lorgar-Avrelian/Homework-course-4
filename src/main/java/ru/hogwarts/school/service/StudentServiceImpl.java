@@ -10,7 +10,7 @@ import java.util.Map;
 @Service
 public class StudentServiceImpl implements StudentService {
     private final Map<Long, Student> students = new HashMap<>();
-    private long studentId = 0;
+    private static long studentId = 0;
 
     @Override
     public Student createStudent(Student student) {
