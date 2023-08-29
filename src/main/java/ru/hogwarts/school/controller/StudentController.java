@@ -47,13 +47,9 @@ public class StudentController {
     }
 
     @DeleteMapping(path = "{id}")
-    public ResponseEntity<Student> deleteStudent(@PathVariable long id) {
-        Student deletedStudent = studentService.deleteStudent(id);
-        if (deletedStudent == null) {
-            return ResponseEntity.status(400).build();
-        } else {
-            return ResponseEntity.ok().body(deletedStudent);
-        }
+    public ResponseEntity deleteStudent(@PathVariable long id) {
+        studentService.deleteStudent(id);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping(path = "/age/{age}")
