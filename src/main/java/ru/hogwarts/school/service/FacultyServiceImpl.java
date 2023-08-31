@@ -2,10 +2,10 @@ package ru.hogwarts.school.service;
 
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.model.Faculty;
+import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.FacultyRepository;
 
 import java.util.Collection;
-import java.util.stream.Collectors;
 
 @Service
 public class FacultyServiceImpl implements FacultyService {
@@ -42,8 +42,16 @@ public class FacultyServiceImpl implements FacultyService {
 
     @Override
     public Collection<Faculty> findByColor(String color) {
-        return facultyRepository.findAll().stream()
-                .filter(e -> e.getColor().equals(color))
-                .collect(Collectors.toList());
+        return facultyRepository.findByColor(color);
+    }
+
+    @Override
+    public Collection<Faculty> findByColorContainsIgnoreCaseOrNameContainsIgnoreCase(String string) {
+        return facultyRepository.findByColorContainsIgnoreCaseOrNameContainsIgnoreCase(string, string);
+    }
+
+    @Override
+    public Collection<Student> findFacultyStudents(Faculty faculty) {
+        return faculty.getStudents();
     }
 }
