@@ -3,10 +3,12 @@ package ru.hogwarts.school.model;
 import javax.persistence.*;
 import java.util.Objects;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
 @Entity
 public class Student {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = IDENTITY)
     private Long id;
     private String name;
     private int age;
