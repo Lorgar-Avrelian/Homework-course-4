@@ -8,7 +8,6 @@ import org.springframework.web.multipart.MultipartFile;
 import ru.hogwarts.school.model.Avatar;
 import ru.hogwarts.school.service.AvatarService;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,7 +16,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 @RestController
-@RequestMapping(path = "/avatar")
 public class AvatarController {
     private final AvatarService avatarService;
 
@@ -25,7 +23,7 @@ public class AvatarController {
         this.avatarService = avatarService;
     }
 
-    @GetMapping(path = "/{id}")
+    @GetMapping(path = "/{id}/avatar")
     public void downloadAvatar(@PathVariable Long id, HttpServletResponse response) throws IOException {
         Avatar avatar = avatarService.findAvatar(id);
         Path avatarPath = Path.of(avatar.getFilePath());
@@ -39,7 +37,7 @@ public class AvatarController {
         }
     }
 
-    @GetMapping(path = "{id}/preview")
+    @GetMapping(path = "{id}/avatar/preview")
     public ResponseEntity<byte[]> downloadAvatarPreview(@PathVariable Long id) {
         Avatar avatar = avatarService.findAvatar(id);
         HttpHeaders headers = new HttpHeaders();
@@ -48,7 +46,7 @@ public class AvatarController {
         return ResponseEntity.ok().headers(headers).body(avatar.getData());
     }
 
-    @PostMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "/{id}/avatar", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> uploadAvatar(@PathVariable Long id, @RequestParam MultipartFile avatar) throws IOException {
         if (avatar.getSize() >= 1024 * 500) {
             return ResponseEntity.status(400).body("File is too big!");
