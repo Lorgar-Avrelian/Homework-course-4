@@ -74,10 +74,39 @@ public class SchoolApplicationMVCTest {
     void getAllTest() throws Exception {
         mockMvc.perform(get("/student")
                         .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").isArray())
+                .andExpect(jsonPath("$[0].id").value(TEST_STUDENT_1.getId()))
+                .andExpect(jsonPath("$[0].name").value(TEST_STUDENT_1.getName()))
+                .andExpect(jsonPath("$[0].age").value(TEST_STUDENT_1.getAge()))
+                .andExpect(jsonPath("$[1].id").value(TEST_STUDENT_2.getId()))
+                .andExpect(jsonPath("$[1].name").value(TEST_STUDENT_2.getName()))
+                .andExpect(jsonPath("$[1].age").value(TEST_STUDENT_2.getAge()))
+                .andExpect(jsonPath("$[2].id").value(TEST_STUDENT_3.getId()))
+                .andExpect(jsonPath("$[2].name").value(TEST_STUDENT_3.getName()))
+                .andExpect(jsonPath("$[2].age").value(TEST_STUDENT_3.getAge()))
+                .andExpect(jsonPath("$[3].id").value(TEST_STUDENT_4.getId()))
+                .andExpect(jsonPath("$[3].name").value(TEST_STUDENT_4.getName()))
+                .andExpect(jsonPath("$[3].age").value(TEST_STUDENT_4.getAge()))
+                .andExpect(jsonPath("$[4].id").value(TEST_STUDENT_5.getId()))
+                .andExpect(jsonPath("$[4].name").value(TEST_STUDENT_5.getName()))
+                .andExpect(jsonPath("$[4].age").value(TEST_STUDENT_5.getAge()));
         mockMvc.perform(get("/faculty")
                         .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").isArray())
+                .andExpect(jsonPath("$[0].id").value(TEST_FACULTY_1.getId()))
+                .andExpect(jsonPath("$[0].name").value(TEST_FACULTY_1.getName()))
+                .andExpect(jsonPath("$[0].color").value(TEST_FACULTY_1.getColor()))
+                .andExpect(jsonPath("$[1].id").value(TEST_FACULTY_2.getId()))
+                .andExpect(jsonPath("$[1].name").value(TEST_FACULTY_2.getName()))
+                .andExpect(jsonPath("$[1].color").value(TEST_FACULTY_2.getColor()))
+                .andExpect(jsonPath("$[2].id").value(TEST_FACULTY_3.getId()))
+                .andExpect(jsonPath("$[2].name").value(TEST_FACULTY_3.getName()))
+                .andExpect(jsonPath("$[2].color").value(TEST_FACULTY_3.getColor()))
+                .andExpect(jsonPath("$[3].id").value(TEST_FACULTY_4.getId()))
+                .andExpect(jsonPath("$[3].name").value(TEST_FACULTY_4.getName()))
+                .andExpect(jsonPath("$[3].color").value(TEST_FACULTY_4.getColor()));
     }
 
     @Test
@@ -94,16 +123,12 @@ public class SchoolApplicationMVCTest {
         facultyObject.put("color", TEST_FACULTY_1.getColor());
 
         mockMvc.perform(get("/student" + "/" + TEST_STUDENT_1.getId())
-                        .content(studentObject.toString())
-                        .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(TEST_STUDENT_1.getId()))
                 .andExpect(jsonPath("$.name").value(TEST_STUDENT_1.getName()))
                 .andExpect(jsonPath("$.age").value(TEST_STUDENT_1.getAge()));
         mockMvc.perform(get("/faculty" + "/" + TEST_FACULTY_1.getId())
-                        .content(facultyObject.toString())
-                        .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(TEST_FACULTY_1.getId()))
@@ -192,10 +217,24 @@ public class SchoolApplicationMVCTest {
         studentObject.put("age", TEST_STUDENT_1.getAge());
 
         mockMvc.perform(get("/student" + "/age/" + TEST_STUDENT_1.getAge())
-                        .content(studentObject.toString())
-                        .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").isArray())
+                .andExpect(jsonPath("$[0].id").value(TEST_STUDENT_1.getId()))
+                .andExpect(jsonPath("$[0].name").value(TEST_STUDENT_1.getName()))
+                .andExpect(jsonPath("$[0].age").value(TEST_STUDENT_1.getAge()))
+                .andExpect(jsonPath("$[1].id").value(TEST_STUDENT_2.getId()))
+                .andExpect(jsonPath("$[1].name").value(TEST_STUDENT_2.getName()))
+                .andExpect(jsonPath("$[1].age").value(TEST_STUDENT_2.getAge()))
+                .andExpect(jsonPath("$[2].id").value(TEST_STUDENT_3.getId()))
+                .andExpect(jsonPath("$[2].name").value(TEST_STUDENT_3.getName()))
+                .andExpect(jsonPath("$[2].age").value(TEST_STUDENT_3.getAge()))
+                .andExpect(jsonPath("$[3].id").value(TEST_STUDENT_4.getId()))
+                .andExpect(jsonPath("$[3].name").value(TEST_STUDENT_4.getName()))
+                .andExpect(jsonPath("$[3].age").value(TEST_STUDENT_4.getAge()))
+                .andExpect(jsonPath("$[4].id").value(TEST_STUDENT_5.getId()))
+                .andExpect(jsonPath("$[4].name").value(TEST_STUDENT_5.getName()))
+                .andExpect(jsonPath("$[4].age").value(TEST_STUDENT_5.getAge()));
     }
 
     @Test
@@ -207,10 +246,21 @@ public class SchoolApplicationMVCTest {
         facultyObject.put("color", TEST_FACULTY_1.getColor());
 
         mockMvc.perform(get("/faculty" + "/color/" + TEST_FACULTY_1.getColor())
-                        .content(facultyObject.toString())
-                        .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").isArray())
+                .andExpect(jsonPath("$[0].id").value(TEST_FACULTY_1.getId()))
+                .andExpect(jsonPath("$[0].name").value(TEST_FACULTY_1.getName()))
+                .andExpect(jsonPath("$[0].color").value(TEST_FACULTY_1.getColor()))
+                .andExpect(jsonPath("$[1].id").value(TEST_FACULTY_2.getId()))
+                .andExpect(jsonPath("$[1].name").value(TEST_FACULTY_2.getName()))
+                .andExpect(jsonPath("$[1].color").value(TEST_FACULTY_2.getColor()))
+                .andExpect(jsonPath("$[2].id").value(TEST_FACULTY_3.getId()))
+                .andExpect(jsonPath("$[2].name").value(TEST_FACULTY_3.getName()))
+                .andExpect(jsonPath("$[2].color").value(TEST_FACULTY_3.getColor()))
+                .andExpect(jsonPath("$[3].id").value(TEST_FACULTY_4.getId()))
+                .andExpect(jsonPath("$[3].name").value(TEST_FACULTY_4.getName()))
+                .andExpect(jsonPath("$[3].color").value(TEST_FACULTY_4.getColor()));
     }
 
     @Test
@@ -225,10 +275,24 @@ public class SchoolApplicationMVCTest {
         int maxAge = TEST_STUDENT_1.getAge() + 1;
 
         mockMvc.perform(get("/student" + "/age?" + "minAge=" + minAge + "&" + "maxAge=" + maxAge)
-                        .content(studentObject.toString())
-                        .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").isArray())
+                .andExpect(jsonPath("$[0].id").value(TEST_STUDENT_1.getId()))
+                .andExpect(jsonPath("$[0].name").value(TEST_STUDENT_1.getName()))
+                .andExpect(jsonPath("$[0].age").value(TEST_STUDENT_1.getAge()))
+                .andExpect(jsonPath("$[1].id").value(TEST_STUDENT_2.getId()))
+                .andExpect(jsonPath("$[1].name").value(TEST_STUDENT_2.getName()))
+                .andExpect(jsonPath("$[1].age").value(TEST_STUDENT_2.getAge()))
+                .andExpect(jsonPath("$[2].id").value(TEST_STUDENT_3.getId()))
+                .andExpect(jsonPath("$[2].name").value(TEST_STUDENT_3.getName()))
+                .andExpect(jsonPath("$[2].age").value(TEST_STUDENT_3.getAge()))
+                .andExpect(jsonPath("$[3].id").value(TEST_STUDENT_4.getId()))
+                .andExpect(jsonPath("$[3].name").value(TEST_STUDENT_4.getName()))
+                .andExpect(jsonPath("$[3].age").value(TEST_STUDENT_4.getAge()))
+                .andExpect(jsonPath("$[4].id").value(TEST_STUDENT_5.getId()))
+                .andExpect(jsonPath("$[4].name").value(TEST_STUDENT_5.getName()))
+                .andExpect(jsonPath("$[4].age").value(TEST_STUDENT_5.getAge()));
     }
 
     @Test
@@ -240,9 +304,20 @@ public class SchoolApplicationMVCTest {
         facultyObject.put("color", TEST_FACULTY_1.getColor());
 
         mockMvc.perform(get("/faculty" + "/find?" + "string=" + TEST_FACULTY_1.getColor())
-                        .content(facultyObject.toString())
-                        .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").isArray())
+                .andExpect(jsonPath("$[0].id").value(TEST_FACULTY_1.getId()))
+                .andExpect(jsonPath("$[0].name").value(TEST_FACULTY_1.getName()))
+                .andExpect(jsonPath("$[0].color").value(TEST_FACULTY_1.getColor()))
+                .andExpect(jsonPath("$[1].id").value(TEST_FACULTY_2.getId()))
+                .andExpect(jsonPath("$[1].name").value(TEST_FACULTY_2.getName()))
+                .andExpect(jsonPath("$[1].color").value(TEST_FACULTY_2.getColor()))
+                .andExpect(jsonPath("$[2].id").value(TEST_FACULTY_3.getId()))
+                .andExpect(jsonPath("$[2].name").value(TEST_FACULTY_3.getName()))
+                .andExpect(jsonPath("$[2].color").value(TEST_FACULTY_3.getColor()))
+                .andExpect(jsonPath("$[3].id").value(TEST_FACULTY_4.getId()))
+                .andExpect(jsonPath("$[3].name").value(TEST_FACULTY_4.getName()))
+                .andExpect(jsonPath("$[3].color").value(TEST_FACULTY_4.getColor()));
     }
 }
