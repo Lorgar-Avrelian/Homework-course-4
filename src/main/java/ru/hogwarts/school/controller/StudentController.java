@@ -74,7 +74,7 @@ public class StudentController {
     }
 
     @GetMapping(path = "/faculty")
-    public Faculty findStudentFaculty(Student student) {
+    public Faculty findStudentFaculty(@RequestBody Student student) {
         return studentService.findStudentFaculty(student);
     }
 
