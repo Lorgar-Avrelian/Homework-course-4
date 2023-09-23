@@ -9,7 +9,7 @@ CREATE TABLE human (
     id SERIAL PRIMARY KEY IDENTITY,
     name TEXT UNIQUE,
     age INTEGER CHECK (age >= 0) AND (age < 120),
-    drivingLicense BOOLEAN,
+    drivingLicense BOOLEAN DEFAULT false,
     carId INTEGER NOT NULL REFERENCES car (Id)
 );
 
