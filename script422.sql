@@ -3,11 +3,11 @@ CREATE TABLE human (
     name TEXT UNIQUE,
     age INTEGER CHECK (age >= 0) AND (age < 120),
     drivingLicense BOOLEAN,
-    carId INTEGER NOT NULL
+    carId INTEGER NOT NULL REFERENCES car (Id)
 );
 
 CREATE TABLE car (
-    id SERIAL PRIMARY KEY IDENTITY REFERENCES human (carId),
+    id SERIAL PRIMARY KEY IDENTITY,
     brand TEXT UNIQUE,
     model TEXT NOT NULL,
     price MONEY CHECK (price > 0)
