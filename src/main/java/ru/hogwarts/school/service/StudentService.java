@@ -27,5 +27,5 @@ public interface StudentService {
 
     double getStudentsAgeAverage();
 
-    List<Student> getLast5Students();
+    List<Student> getLastStudents(int size);
 }

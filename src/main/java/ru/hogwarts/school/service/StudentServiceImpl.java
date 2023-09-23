@@ -67,7 +67,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> getLast5Students() {
-        return studentRepository.last5Students();
+    public List<Student> getLastStudents(int size) {
+        return studentRepository.lastStudents(size);
     }
 }

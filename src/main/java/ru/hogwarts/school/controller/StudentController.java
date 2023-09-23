@@ -88,8 +88,8 @@ public class StudentController {
         return studentService.getStudentsAgeAverage();
     }
 
-    @GetMapping(path = "/last5")
-    public List<Student> getLast5Students() {
-        return studentService.getLast5Students();
+    @GetMapping(path = "/last")
+    public List<Student> getLastStudents(@RequestParam int size) {
+        return studentService.getLastStudents(size);
     }
 }
