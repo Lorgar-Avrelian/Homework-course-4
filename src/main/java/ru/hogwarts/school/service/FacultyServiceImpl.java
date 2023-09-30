@@ -13,7 +13,7 @@ import java.util.List;
 @Service
 public class FacultyServiceImpl implements FacultyService {
     private final FacultyRepository facultyRepository;
-    Logger logger = LoggerFactory.getLogger(FacultyServiceImpl.class);
+    private final Logger logger = LoggerFactory.getLogger(FacultyServiceImpl.class);
 
     public FacultyServiceImpl(FacultyRepository facultyRepository) {
         this.facultyRepository = facultyRepository;

@@ -13,7 +13,7 @@ import java.util.List;
 @Service
 public class StudentServiceImpl implements StudentService {
     private final StudentRepository studentRepository;
-    Logger logger = LoggerFactory.getLogger(StudentServiceImpl.class);
+    private final Logger logger = LoggerFactory.getLogger(StudentServiceImpl.class);
 
     public StudentServiceImpl(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;

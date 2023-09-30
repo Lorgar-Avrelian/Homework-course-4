@@ -28,7 +28,7 @@ public class AvatarServiceImpl implements AvatarService {
     private String avatarsDir;
     private final StudentService studentService;
     private final AvatarRepository avatarRepository;
-    Logger logger = LoggerFactory.getLogger(AvatarServiceImpl.class);
+    private final Logger logger = LoggerFactory.getLogger(AvatarServiceImpl.class);
 
     public AvatarServiceImpl(StudentService studentService, AvatarRepository avatarRepository) {
         this.studentService = studentService;
