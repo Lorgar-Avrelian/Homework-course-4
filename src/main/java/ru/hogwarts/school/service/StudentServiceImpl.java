@@ -8,6 +8,7 @@ import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.StudentRepository;
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -103,5 +104,36 @@ public class StudentServiceImpl implements StudentService {
         List<Student> answer = studentRepository.lastStudents(size);
         logger.debug("Getting answer {}", answer);
         return answer;
+    }
+
+    @Override
+    public List<String> getSortedNames(char letter) {
+        return studentRepository.findAll().stream()
+                .parallel()
+                .map(Student::getName)
+                .toList()
+                .stream().distinct()
+                .toList()
+                .stream()
+                .parallel()
+                .filter(name -> name.startsWith(String.valueOf(letter)))
+                .toList()
+                .stream().sorted(Comparator.naturalOrder())
+                .toList()
+                .stream().map(String::toUpperCase)
+                .toList();
+    }
+
+    @Override
+    public double getMedianAge() {
+        int summaryAge = studentRepository.findAll().stream()
+                .parallel()
+                .map(Student::getAge)
+                .toList()
+                .stream()
+                .parallel()
+                .mapToInt(age -> age)
+                .sum();
+        return (double) (summaryAge / studentRepository.studentsCount());
     }
 }

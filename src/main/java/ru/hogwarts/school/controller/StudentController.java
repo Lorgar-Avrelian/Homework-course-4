@@ -8,6 +8,7 @@ import ru.hogwarts.school.service.StudentService;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Stream;
 
 @RestController
 @RequestMapping(path = "/student")
@@ -91,5 +92,24 @@ public class StudentController {
     @GetMapping(path = "/last")
     public List<Student> getLastStudents(@RequestParam int size) {
         return studentService.getLastStudents(size);
+    }
+
+    @GetMapping(path = "/names/{letter}")
+    public List<String> getSortedNames(@PathVariable char letter) {
+        return studentService.getSortedNames(letter);
+    }
+
+    @GetMapping(path = "/medianAge")
+    public double getMedianAge() {
+        return studentService.getMedianAge();
+    }
+
+    @GetMapping(path = "/stream-training")
+    public int streamTraining() {
+        return Stream.iterate(1, a -> a + 1)
+                .limit(1_000_000)
+                .parallel()
+                .reduce(0, (a, b) -> a + b );
+
     }
 }

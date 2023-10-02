@@ -28,4 +28,8 @@ public interface StudentService {
     double getStudentsAgeAverage();
 
     List<Student> getLastStudents(int size);
+
+    List<String> getSortedNames(char letter);
+
+    double getMedianAge();
 }
