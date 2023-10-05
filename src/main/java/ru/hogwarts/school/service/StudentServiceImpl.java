@@ -13,6 +13,7 @@ import java.util.List;
 
 @Service
 public class StudentServiceImpl implements StudentService {
+    Object sync = new Object();
     private final StudentRepository studentRepository;
     private final Logger logger = LoggerFactory.getLogger(StudentServiceImpl.class);
 
@@ -135,5 +136,48 @@ public class StudentServiceImpl implements StudentService {
                 .mapToInt(age -> age)
                 .sum();
         return (double) (summaryAge / studentRepository.studentsCount());
+    }
+
+    @Override
+    public void printStudentsNames() {
+        List<String> studentsNames = studentRepository.findAll().stream()
+                .map(Student::getName)
+                .toList();
+        new Thread(() -> {
+            System.out.println(studentsNames.get(0));
+            System.out.println(studentsNames.get(1));;
+        }).start();
+        new Thread(() -> {
+            System.out.println(studentsNames.get(2));
+            System.out.println(studentsNames.get(3));
+        }).start();
+        new Thread(() -> {
+            System.out.println(studentsNames.get(4));
+            System.out.println(studentsNames.get(5));
+        }).start();
+    }
+    @Override
+    public void syncPrintStudentsNames() {
+        List<String> studentsNames = studentRepository.findAll().stream()
+                .map(Student::getName)
+                .toList();
+        new Thread(() -> {
+            syncPrint(studentsNames.get(0));
+            syncPrint(studentsNames.get(1));;
+        }).start();
+        new Thread(() -> {
+            syncPrint(studentsNames.get(2));
+            syncPrint(studentsNames.get(3));
+        }).start();
+        new Thread(() -> {
+            syncPrint(studentsNames.get(4));
+            syncPrint(studentsNames.get(5));
+        }).start();
+    }
+
+    private void syncPrint(String name) {
+        synchronized (sync) {
+            System.out.println(name);
+        }
     }
 }

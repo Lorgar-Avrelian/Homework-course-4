@@ -112,4 +112,13 @@ public class StudentController {
                 .reduce(0, (a, b) -> a + b );
 
     }
+
+    @GetMapping(path = "/printNames")
+    public void printStudentsNames() {
+        studentService.printStudentsNames();
+    }
+    @GetMapping(path = "/synchroPrintNames")
+    public void syncPrintStudentsNames() {
+        studentService.syncPrintStudentsNames();
+    }
 }

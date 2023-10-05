@@ -32,4 +32,8 @@ public interface StudentService {
     List<String> getSortedNames(char letter);
 
     double getMedianAge();
+
+    void printStudentsNames();
+
+    void syncPrintStudentsNames();
 }
