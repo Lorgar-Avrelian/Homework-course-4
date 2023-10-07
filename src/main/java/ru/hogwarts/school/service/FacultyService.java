@@ -21,4 +21,6 @@ public interface FacultyService {
     Collection<Faculty> findByColorContainsIgnoreCaseOrNameContainsIgnoreCase(String string);
 
     Collection<Student> findFacultyStudents(Faculty faculty);
+
+    String getLongestName();
 }

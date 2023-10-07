@@ -4,6 +4,7 @@ import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 
 import java.util.Collection;
+import java.util.List;
 
 public interface StudentService {
     Student createStudent(Student student);
@@ -21,4 +22,18 @@ public interface StudentService {
     Collection<Student> findByAgeBetween(int minAge, int maxAge);
 
     Faculty findStudentFaculty(Student student);
+
+    int getStudentsCount();
+
+    double getStudentsAgeAverage();
+
+    List<Student> getLastStudents(int size);
+
+    List<String> getSortedNames(char letter);
+
+    double getMedianAge();
+
+    void printStudentsNames();
+
+    void syncPrintStudentsNames();
 }

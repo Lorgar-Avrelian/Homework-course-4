@@ -73,7 +73,12 @@ public class FacultyController {
     }
 
     @GetMapping(path = "/students")
-    public Collection<Student> findFacultyStudents(Faculty faculty) {
+    public Collection<Student> findFacultyStudents(@RequestBody Faculty faculty) {
         return facultyService.findFacultyStudents(faculty);
+    }
+
+    @GetMapping(path = "/longestName")
+    public String getLongestName() {
+        return facultyService.getLongestName();
     }
 }

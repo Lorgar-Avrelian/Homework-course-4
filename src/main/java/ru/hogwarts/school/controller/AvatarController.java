@@ -14,6 +14,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 @RestController
 public class AvatarController {
@@ -55,4 +56,11 @@ public class AvatarController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping(path = "/avatars")
+    public ResponseEntity<List<Avatar>> getAvatars(@RequestParam int pageNum, @RequestParam int pageSize) {
+        if (pageNum <= 0 || pageSize <= 0) {
+            return ResponseEntity.status(400).build();
+        }
+        return ResponseEntity.ok().body(avatarService.getAvatars(pageNum, pageSize));
+    }
 }

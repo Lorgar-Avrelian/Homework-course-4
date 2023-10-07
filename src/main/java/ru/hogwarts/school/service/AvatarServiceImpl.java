@@ -1,6 +1,9 @@
 package ru.hogwarts.school.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import ru.hogwarts.school.model.Avatar;
@@ -14,6 +17,7 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 import static java.nio.file.StandardOpenOption.CREATE_NEW;
 
@@ -24,6 +28,7 @@ public class AvatarServiceImpl implements AvatarService {
     private String avatarsDir;
     private final StudentService studentService;
     private final AvatarRepository avatarRepository;
+    private final Logger logger = LoggerFactory.getLogger(AvatarServiceImpl.class);
 
     public AvatarServiceImpl(StudentService studentService, AvatarRepository avatarRepository) {
         this.studentService = studentService;
@@ -32,11 +37,15 @@ public class AvatarServiceImpl implements AvatarService {
 
     @Override
     public Avatar findAvatar(Long id) {
-        return avatarRepository.findById(id).get();
+        logger.info("Searching avatar by id {}", id);
+        Avatar answer = avatarRepository.findById(id).get();
+        logger.debug("Getting answer {}", answer);
+        return answer;
     }
 
     @Override
     public void uploadAvatar(Long id, MultipartFile file) throws IOException {
+        logger.info("Trying to upload avatar for student with id {}", id);
         Student student = studentService.findStudent(id);
 
         Path filePath = Path.of(avatarsDir, id + "." + getExtension(file.getOriginalFilename()));
@@ -84,5 +93,14 @@ public class AvatarServiceImpl implements AvatarService {
             ImageIO.write(preview, getExtension(filePath.getFileName().toString()), baos);
             return baos.toByteArray();
         }
+    }
+
+    @Override
+    public List<Avatar> getAvatars(int pageNum, int pageSize) {
+        logger.info("Getting pageable list of avatars with page number {} and page size {}", pageNum, pageSize);
+        PageRequest pageRequest = PageRequest.of(pageNum - 1, pageSize);
+        List<Avatar> answer = avatarRepository.findAll(pageRequest).getContent();
+        logger.debug("Getting answer {}", answer);
+        return answer;
     }
 }
